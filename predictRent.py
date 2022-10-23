@@ -1,10 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-크롤링을 위해서 선택한 사이트는 RentHop 사이트 (http://www.renthop.com) 입니다.  
-
-해당 사이트에 가면 올라와있는 매물의 주소, 가격, 침실 수 및 욕실 수를 확인할 수 있습니다. 각 매물에 대해서 이를 크롤링을 할텐데 여기에는 파이썬 requests 패키지를 사용합니다.  
-
-requests의 사용 방법에 대한 개요를 보려면 http://docs.python-requests.org/en/master/user/quickstart/ 에서 가이드를 볼 수 있습니다.
+크롤링을 위해서 선택한 사이트는 RentHop 사이트
+해당 사이트에 가면 올라와있는 매물의 주소, 가격, 침실 수 및 욕실 수를 확인할 수 있다.
+각 매물에 대해서 이를 크롤링을 할텐데 여기에는 파이썬 requests 패키지를 사용.  
 """
 
 # Commented out IPython magic to ensure Python compatibility.
@@ -14,11 +12,11 @@ import requests
 import matplotlib.pyplot as plt
 # %matplotlib inline
 
-"""뉴욕시 NYC 아파트 데이터를 사용해보겠습니다. 해당 데이터의 URL은 https://www.renthop.com/nyc/apartments-for-rent 입니다. 해당 페이지의 HTML 코드를 가져오는 코드는 다음과 같습니다."""
+"""뉴욕시 NYC 아파트 데이터를 사용. 해당 데이터의 URL은 [https://www.renthop.com/nyc/apartments-for-rent] 해당 페이지의 HTML 코드를 가져오는 코드는 다음과 같다."""
 
 r = requests.get('https://www.renthop.com/nyc/apartments-for-rent')
 
-"""코드를 가져와서 r객체에 저장 후 content를 통해 가져온 값을 확인할 수 있습니다."""
+"""코드를 가져와서 r객체에 저장 후 content를 통해 가져온 값을 확인할 수 있다."""
 
 r.content
 
@@ -28,7 +26,7 @@ from bs4 import BeautifulSoup
 
 soup = BeautifulSoup(r.content, "html5lib")
 
-"""이제 우리가 만든 soup를 사용하여 아파트 데이터를 구문 분석 할 수 있습니다. 가장 먼저 할 일은 페이지의 목록 데이터를 포함하는 div 태그를 검색하는 것입니다. 다음 코드에서 확인할 수 있습니다.  
+"""만든 soup를 사용하여 아파트 데이터를 구문 분석 할 수 있습니다. 가장 먼저 할 일은 페이지의 목록 데이터를 포함하는 div 태그를 검색하는 것입니다. 다음 코드에서 확인할 수 있다.  
 
 아래 코드는 div 태그에서 class가 search-info가 들어간 것들을 찾아내서 listing_divs라는 이름의 리스트에 추가합니다.
 이것들 각각이 하나의 매물을 포함하고 있는 원소라고 보시면 됩니다.
@@ -102,7 +100,7 @@ type(listing_divs[0].text)
 
 """타입을 확인하면 문자열로 바뀐 것을 확인할 수 있습니다.
 
-이제 우리가 앞서 사용했던 문자열의 index 기능을 사용할 수 있게 됩니다.
+앞서 사용했던 문자열의 index 기능을 사용할 수 있게 됩니다.
 """
 
 index_num = listing_divs[0].text.index('$') 
@@ -171,12 +169,12 @@ listing_list
 
 len(listing_list)
 
-"""지금까지 실습해본 것은 하나의 페이지에 대해서 수행한 것이고 이제 여러 개의 페이지에 접근하는 방법을 알아봅시다.  
-기본적으로 renthop의 주소 구조는 다음과 같습니다.  
+"""
+기본적으로 renthop의 주소 구조는 다음과 같다.  
 
 https://www.renthop.com/search/nyc?max_price=50000&min_price=0&page=페이지숫자&sort=hopscore&q=&search=0  
 
-여기서 페이지 숫자만 변수로 사용하여서 여러 페이지에 접근하면 되겠지요?
+여기서 페이지 숫자만 변수로 사용하여서 여러 페이지에 접근
 """
 
 # iterable url
@@ -317,11 +315,9 @@ df['beds'].unique()
 그런 경우에는 방금 보신 것과 같이 URL을 꺼내와서 사이트에 들어가보신 후에  
 해당 페이지에서 확인한 정상적인 값으로 at을 통해서 바꿔치기 해주시면 되겠습니다.  
 
-일반적으로 잘못 크롤링 된 값은 많지 않으므로 수작업으로도 가능합니다.  
-
 그런데 사실 왼쪽 공백을 제거하는 정도는 값을 굳이 수작업으로 바꿀 필요 없이 lstrip()을 통해서도 가능합니다.  
 lstrip()은 문자열에서 앞에 있는 공백을 제거하는 역할을 합니다.  
-임의의 문자열에 대해서 왼쪽 공백을 제거하는 실습을 해봅시다.
+임의의 문자열에 대해서 왼쪽 공백을 제거 해봅시다.
 """
 
 ' 임의의 문자열'.lstrip()
@@ -479,14 +475,8 @@ def get_zip(row):
         return np.nan
 
 """위에서 re.match는 파이썬에서 제공하는 정규 표현식을 사용한 것입니다.  
-정규 표현식에 대해서 다음과 같이 따로 설명하는 자료를 아래 링크로 만들었습니다.  
 
-정규 표현식 이론 설명(현 튜터 블로그) : https://wikidocs.net/21703 (실습에 약 20분 소요)
-
-위 코드에 대한 별도 설명 자료 : https://colab.research.google.com/drive/1MRlw-vP_EOT_u95XSmzBUIqpk9aquNEf?usp=sharing
-
-너무 어렵다면 이런 것도 있구나만 기억하고 넘어갑시다. 저도 필요할 때마다 찾아보고 평소에 굳이 외우고 있지 않습니다.  
-정규 표현식은 정말 소수의 분들을 제외하면 모든 분들한테 어렵기 때문입니다 ^^;
+정규 표현식 이론 설명 : https://wikidocs.net/21703 
 
 DataFrame에서 apply 메소드를 실행합니다. 각 행에 대해서 이 함수들을 모두 적용한다는 의미인데요. 결과적으로 수백 개 이상의 행에 이 함수가 적용된다는 것이므로 실행 시간은 조금 걸립니다.
 """
